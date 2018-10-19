@@ -18,11 +18,13 @@ Golang installed
 # Installation
 
 Add project working directory and the ./vendor folder to your GOPATH:
+
 $ export GOPATH=/home/me/projects/lottery-game/vendor:/home/me/projects/lottery-game:$GOPATH
 
 # Running the server
 
 Navigate to the project home directory and type
+
 $ go run src\go-server\main.go src\go-server\init.go
 
 The server will start listening on port 3000.
