@@ -18,25 +18,65 @@ Golang installed
 # Installation
 
 Add project working directory and the ./vendor folder to your GOPATH:
-
+```
 $ export GOPATH=/home/me/projects/lottery-game/vendor:/home/me/projects/lottery-game:$GOPATH
+````
 
 # Running the server
 
 Navigate to the project home directory and type
-
+```
 $ go run src\go-server\main.go src\go-server\init.go
+```
 
 The server will start listening on port 3000.
-To connect, send HTTP POST requests to http://localhost:3000/api/v1/bets endpoint.
+To connect, send HTTP POST requests to `http://localhost:3000/api/v1/bets` endpoint.
 
 # Client API
 
 Client request JSON format is this:
+```
 {
 	"id": "crazy_gambler367",
 	"amount": 110.3,
 	"bet": [145, 91]
 }
+```
 
 The "bet" field contains an array of length two with integer values between 0 to 255 treated as uint8 (byte) datatype values. A two-byte long entry is reconstructed from the two as a uint16 (little endian) value.
+
+# Usage examples
+
+A winning combination (jackpot):
+
+![Jackpot](images/jackpot.png)
+
+Not a winning combination:
+
+![Miss](images/lost_bet.png)
+
+A winning combination with the jackpot just taken by another player (free bonus game awarded):
+
+![Zero Jackpot Win](images/won_with_zero_jackpot.png)
+
+Bonus game without game fee:
+![Bonus Game](images/bonus_game.png)
+
+Attempt to play an illegitimate free game (same player id is used for the second time):
+
+![Inexistent Bonus Game](images/inexistent_bonus_game.png)
+
+
+Some basic input validation has been implemented:
+
+Required fields missing:
+
+![Validation Required Fields](images/validation_required_fields.png)
+
+Negative game fee:
+
+![Validation Game Fee](images/validation_negative_bet_amount.png)
+
+Byte value out of [0,255] bounds:
+
+![Validation Byte Limits](images/validation_max_byte_value.png)
